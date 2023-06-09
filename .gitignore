@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Non C++ related files
+*.zip
+*.csv
+*.txt

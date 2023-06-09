@@ -1,24 +1,28 @@
-#include "utilities.h"
-#include <vector>
-#define Node_H
 #ifndef Node_H
+#define Node_H
+
+#include <vector>
+#include "utilities.h"
+#include "Point.h"
 
 class Node {
 public:
-    Node();
+    Node(Boundary);
     ~Node();
     int totalPoints();
     int totalNodes();
-    void insert(Point p, int population);
-    vector<Node> list();
+    void insert(Point p);
+    std::vector<Node> list();
     int countRegion();
+
 private:
-    string city;
-    int population;
-    string country;
-    Boundary boundary; //Pair of points that delimit the area represented by the node
-    bool color; //Type of node, true (or black) if there is points (information) inside the node, false (or white) otherwise
-    Node* children; //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
+	Point *p_;
+	// (Point a, Point b)
+	Boundary boundary_;
+    //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
+	Node* children_[4]; 
+	void subdivide();
+
 };
 
 #endif

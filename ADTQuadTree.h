@@ -20,11 +20,11 @@ class ADTQuadTree {
 
 	// Returns the amount of points in a certain region of the plane, with
 	// p as the center and d as the radius
-	virtual int countRegion(Point p, int d) = 0;
+	virtual int countRegion(Point p) = 0;
 
 	// Returns the estimated population in a certain region of the plane
 	// with p as the center and d as the radius
-	virtual int aggregateRegion(Point p, int d) = 0;	
+	virtual int aggregateRegion(Point p) = 0;	
 
 };
 
