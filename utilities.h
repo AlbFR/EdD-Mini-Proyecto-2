@@ -23,6 +23,13 @@ class Boundary {
 			throw "Cannot initialize Boundary without given Points";
 		}
 
+		Boundary(Point p, int d) {
+			Point *a = new Point(p.x-d, p.y-d);
+			Point *b = new Point(p.x+d, p.y+d);
+			this->upperleft = *a;
+			this->bottomright = *b;
+		}
+
 		Boundary(Point ul, Point br) {
 			if (ul.x > br.x || ul.y > br.y)
 				throw "Cannot create Boundary, upperLeft Point must be lower than lowerRight Point";

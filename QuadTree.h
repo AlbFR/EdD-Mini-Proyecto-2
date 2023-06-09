@@ -2,12 +2,14 @@
 #define QuadTree_h
 
 #include "ADTQuadTree.h"
+#include "Node.h"
 
-class QuadTree : ADTQuadTree{
+class QuadTree: ADTQuadTree {
 public:
+	QuadTree(Boundary);
 	int totalPoints();
 	int totalNodes();
-	void insert(Point p, int data);
+	void insert(Point p);
 	void list();
 	int countRegion(Point p, int d);
 	int aggregateRegion(Point p, int d);

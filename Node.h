@@ -13,7 +13,8 @@ public:
     int totalNodes();
     void insert(Point p);
     std::vector<Node> list();
-    int countRegion();
+    int countRegion(Boundary*);
+	int agreggateRegion(Boundary*);
 
 private:
 	Point *p_;
