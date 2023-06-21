@@ -40,7 +40,7 @@ std::vector<Node> Node::list() {
 }
 
 int Node::countRegion(Boundary *b) {
-	if ()
+	// if ()
 }
 
 int Node::agreggateRegion(Boundary *b) {

@@ -1,7 +1,7 @@
 #ifndef ADTQuadTree_h
 #define ADTQuadTree_h
 
-#include "utilities.h"
+#include "utilities/Point.h"
 
 class ADTQuadTree {
 	

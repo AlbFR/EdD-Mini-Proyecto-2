@@ -2,8 +2,8 @@
 #define Node_H
 
 #include <vector>
-#include "utilities.h"
-#include "Point.h"
+#include "utilities/Boundary.h"
+#include "utilities/Point.h"
 
 class Node {
 public:
@@ -21,7 +21,7 @@ private:
 	// (Point a, Point b)
 	Boundary boundary_;
     //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
-	Node* children_[4]; 
+	Node *children_[4]; 
 	void subdivide();
 
 };

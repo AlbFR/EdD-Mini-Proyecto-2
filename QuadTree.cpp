@@ -23,11 +23,11 @@ void QuadTree::list() {
 }
 
 int QuadTree::countRegion(Point p, int d) {
-	Boundary *b = new Boundary(p, d);
+	Boundary *b = new Boundary(&p, d);
 	return root->countRegion(b);
 }
 
 int QuadTree::aggregateRegion(Point p, int d) {
-	Boundary *b = new Boundary(p, d);
+	Boundary *b = new Boundary(&p, d);
 	return root->agreggateRegion(b);
 }
