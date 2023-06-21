@@ -16,7 +16,7 @@ public:
 
 private:
 	Node* root;
-	int num_elements;
+	unsigned num_elements;
 
 };
 

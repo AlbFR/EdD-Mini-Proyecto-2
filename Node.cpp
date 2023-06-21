@@ -36,8 +36,13 @@ void Node::insert(Point p) {
 }
 
 std::vector<Node> Node::list() {
+
 }
 
-int Node::countRegion() {
+int Node::countRegion(Boundary *b) {
+	if ()
+}
+
+int Node::agreggateRegion(Boundary *b) {
 
 }

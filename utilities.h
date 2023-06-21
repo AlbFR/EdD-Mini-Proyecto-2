@@ -38,7 +38,7 @@ class Boundary {
 			this->bottomright = br;
 		}
 
-		bool isInBounds(Point p) {
+		bool isInBounds(Point p) { // limits inclusive
 			if (p.x < upperleft.x || p.y < upperleft.y)
 				return false;
 
@@ -46,6 +46,10 @@ class Boundary {
 				return false;
 
 			return true;
+		}
+
+		bool isInBounds(Boundary b) {
+				
 		}
 
 		void print() {

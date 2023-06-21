@@ -30,6 +30,18 @@ class Point {
 		void setY(double y) {
 			this->y = y;
 		}
+
+		bool operator<(Point q) {
+			if (this->x < q.x && this->y < q.y)
+				return true;
+			return false;
+		}
+
+		bool operator<=(Point q) {
+			if (this->x <= q.x && this->y <= q.y)
+				return true;
+			return false;
+		}
 };
 
 #endif
