@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node(Boundary boundary) {
+Node::Node(Boundary *boundary) {
 	boundary_ = boundary;	
 	*children_ = {nullptr};
 }
@@ -27,7 +27,7 @@ int Node::totalNodes() {
 }
 
 void Node::insert(Point p) {
-	if (!boundary_.isInBounds(p))
+	if (!boundary_->isInBounds(p))
 		return;
 
 	
@@ -40,9 +40,23 @@ std::vector<Node> Node::list() {
 }
 
 int Node::countRegion(Boundary *b) {
-	// if ()
+	if (!boundary_->isPartiallyInBounds(b))
+		return 0;
+
+	int sum = 0;
+	for (int i = 0;i < 4;++i) {
+		sum += children_[i]->countRegion(b);
+	}
+	return sum;
 }
 
 int Node::agreggateRegion(Boundary *b) {
-
+	if (!boundary_->isPartiallyInBounds(b));
+		return 0;
+	
+	int sum = 0;
+	for (int i = 0;i < 4;++i) {
+		sum += children_[i]->countRegion(b);
+	}
+	return sum;
 }
