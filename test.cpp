@@ -1,13 +1,25 @@
 #include <iostream>
+#include "Node.h"
 #include "utilities/Boundary.h"
 
 int main() {
-	Point *a = new Point(0, 1);
-	Point *b = new Point(1, 2);
-	Point *c = new Point(2, 3);
-	Point *d = new Point(3, 4);
-	std::cout << b->compare(a) << std::endl;
-	Boundary *b1 = new Boundary(a, d);
-	Boundary *b2 = new Boundary(b, c);
-	std::cout << b1->isInBounds(b2) << std::endl;
+	Point *a = new Point(0.0f, 0.0f);
+	Point *b = new Point(100.0f, 100.0f);
+	Point *xd = new Point(20.0f, 30.5f);
+	// Point *d = new Point(3, 4);
+
+	Boundary *b1 = new Boundary(a, b);
+
+	Point *p = new Point(0.0f, 1.0f);
+	PointNode *pn = new PointNode(p);
+	PointList *pl = new PointList(pn);
+	p->print();
+	pn->print();
+	pl->print();
+
+
+	Node *n = new Node(b1);
+	n->insert(*xd);
+
+	n->showPoints();
 }
