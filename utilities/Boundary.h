@@ -7,14 +7,20 @@ class Boundary {
 	public:
 		Point *upperleft;
 		Point *bottomright;
+		Point *next;
 		Boundary();
+		Boundary(Boundary *b);
 		Boundary(Point *p, int d);
 		Boundary(Point *ul, Point *br);
-		bool isInBounds(Point p);
-        bool isInBounds(Point *p);
-		bool isInBounds(Boundary *b);
-		bool isPartiallyInBounds(Boundary *b);
-		void print();
+		double halfX() const;
+		double halfY() const;
+		Point* halfPoint() const;
+		bool isInBounds(Point p) const;
+        bool isInBounds(Point *p) const;
+		bool isInBounds(Boundary *b) const;
+		bool isPartiallyInBounds(Boundary *b) const;
+		void print() const;
+		void operator=(Boundary b);
 };
 
 #endif

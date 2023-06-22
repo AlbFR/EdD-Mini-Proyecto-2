@@ -2,6 +2,7 @@
 #define ADTQuadTree_h
 
 #include "utilities/Point.h"
+#include "utilities/PointData.h"
 
 class ADTQuadTree {
 	
@@ -12,7 +13,7 @@ class ADTQuadTree {
 	virtual int totalNodes() = 0;
 
 	// Inserts a new point p in the QuadTree, associating it with the given information
-	virtual void insert(Point p, int data) = 0;
+	virtual void insert(Point p, PointData data) = 0;
 
 	// Returns a container with every point in QuadTree, for each value returns
 	// its coordinates and its associated value

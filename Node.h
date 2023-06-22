@@ -8,21 +8,24 @@
 class Node {
 public:
     Node(Boundary *b);
+	Node(Point *ul, Point *br);
     ~Node();
-    int totalPoints();
-    int totalNodes();
-    void insert(Point p);
-    std::vector<Node> list();
-    int countRegion(Boundary *b);
-	int agreggateRegion(Boundary *b);
+    int totalPoints() const;
+    int totalNodes() const;
+    void insert(Point &p);
+	void insert(PointList *pl);
+    std::vector<Node> list() const;
+    int countRegion(Boundary *b) const;
+	int agreggateRegion(Boundary *b) const;
+	void showPoints() const;
 
 private:
-	Point *p_;
-	// (Point a, Point b)
+	PointList *pl_; // Linked List of Points
 	Boundary *boundary_;
     //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
 	Node *children_[4]; 
 	void subdivide();
+	// void appendPoint(Point p);
 
 };
 

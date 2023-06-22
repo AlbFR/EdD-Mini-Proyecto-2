@@ -1,6 +1,6 @@
 #include "QuadTree.h"
 
-QuadTree::QuadTree(Boundary b) {
+QuadTree::QuadTree(Boundary *b) {
 	root = new Node(b);
 	num_elements = 0;
 }
