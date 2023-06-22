@@ -10,6 +10,13 @@ Point::Point() {
 Point::Point(double x, double y) {
 	this->x = x;
 	this->y = y;
+	this->pointdata = nullptr;
+}
+
+Point::Point(PointData pointData) {
+	this->x = pointData.longitude;
+	this->y = pointData.latitude;
+	this->pointdata = &pointData;
 }
 
 void Point::print() {
