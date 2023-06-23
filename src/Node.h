@@ -12,7 +12,7 @@ public:
     ~Node();
     int totalPoints() const;
     int totalNodes() const;
-    void insert(Point &p);
+    void insert(Point *p);
 	void insert(PointList *pl);
     void list(std::vector<PointList*> &v) const;
     int countRegion(Boundary *b) const;

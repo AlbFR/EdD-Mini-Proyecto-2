@@ -26,33 +26,34 @@ int Node::totalPoints() const {
 
 	int points = 0;
 	for (int i=0;i<4;++i)
-		points += children_[i]->totalPoints();
+	 	if (children_[i] != nullptr)
+			points += children_[i]->totalPoints();
 	return points;
 }
 
 int Node::totalNodes() const {
-	if (*children_ == nullptr)
+	if (pl_ != nullptr)
 		return 1;
 	
-	int nodes = 1;
+	int nodes = 0;
 	for (int i = 0; i < 4; i++) {
 		nodes += children_[i]->totalNodes();
 	}
-	return nodes;
+	return nodes + 1;
 }
 
-void Node::insert(Point &p) {
+void Node::insert(Point *p) {
 	if (!(boundary_->isInBounds(p))) {
 		return;
 	}
 
 	if (pl_ == nullptr) {
-		pl_ = new PointList(&p);
+		pl_ = new PointList(p);
 		return;
 	}
 	else {
-		if (pl_->sameCoordsAs(p)) {
-			pl_->append(&p);
+		if (pl_->sameCoordsAs(*p)) {
+			pl_->append(p);
 			return;
 		}
 		else {
@@ -63,7 +64,8 @@ void Node::insert(Point &p) {
 	}
 	
 	for (int i=0;i<4;++i) {
-		children_[i]->insert(p);
+		if (children_[i] != nullptr)
+			children_[i]->insert(p);
 	}
 }
 
@@ -146,30 +148,32 @@ void Node::showPoints() const {
 }
 
 void Node::subdivide() {
-	Point *ul = boundary_->upperleft;
-	Point *br = boundary_->bottomright;
+	Point ul = *boundary_->upperleft;
+	Point br = *boundary_->bottomright;
 	Point *p = new Point(0.0f, 0.0f);
 	Point *q = new Point(0.0f, 0.0f);
 	double halfX = boundary_->halfX();
 	double halfY = boundary_->halfY();
 
-	*p = *ul;
+	*p = ul;
 	*q = *(boundary_->halfPoint());
-	children_[0] = new Node(p, q);
+	Boundary *b = new Boundary(p, q);
+	children_[0] = new Node(b);
 
 	p->setX(halfX);
-	q->setX(br->x);
-	q->setY(halfY);
+	q->set(br.x, halfY);
+	b = new Boundary(p, q);
 	children_[1] = new Node(p, q);
 
-	p->setX(ul->x);
-	p->setY(halfY);
+	p->set(ul.x, halfY);
 	q->setX(halfX);
-	q->setY(ul->y);
+	q->setY(br.y);
+	b = new Boundary(p, q);
 	children_[2] = new Node(p, q);
 
 	*p = *(boundary_->halfPoint());
-	*q = *br;
+	*q = br;
+	b = new Boundary(p, q);
 	children_[4] = new Node(p, q);
 	std::cout << "Subdivision made :D (print in Node::subdivide())" << std::endl;
 }

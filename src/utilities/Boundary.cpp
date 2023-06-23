@@ -19,6 +19,10 @@ Boundary::Boundary(Point *p, int d) {
 }
 
 Boundary::Boundary(Point *ul, Point *br) {
+	// std::cout << "Creating new Boundary:" << std::endl;
+	// ul->print();
+	// br->print();
+	// std::cout << "ul.compare(br) is " << ul->compare(br) << std::endl << std::endl;
 	if (ul->compare(br) != 1)
 		std::cerr << "Cannot create Boundary, upperLeft Point must be lower than lowerRight Point" << std::endl;;
 	

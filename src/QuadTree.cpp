@@ -17,9 +17,9 @@ int QuadTree::totalNodes() {
 	return root->totalNodes();
 }
 
-void QuadTree::insert(Point p) {
-	if(p.pointdata == nullptr) {
-		throw "The Points must contain information to be inserted in the QuadTree.";
+void QuadTree::insert(Point *p) {
+	if(p->pointdata == nullptr) {
+		std::cerr << "The Points must contain information to be inserted in the QuadTree." << std::endl;
 	}
 	root->insert(p);
 	num_elements++;

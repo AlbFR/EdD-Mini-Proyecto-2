@@ -14,7 +14,7 @@ class ADTQuadTree {
 	virtual int totalNodes() = 0;
 
 	// Inserts a new point p in the QuadTree, associating it with the given information
-	virtual void insert(Point p) = 0;
+	virtual void insert(Point *p) = 0;
 
 	// Returns a container (as parameter) with every PointList in QuadTree which has
 	// every Point in QuadTree, for each value returns

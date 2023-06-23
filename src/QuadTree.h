@@ -10,7 +10,7 @@ public:
 	QuadTree(Boundary *b);
 	int totalPoints();
 	int totalNodes();
-	void insert(Point p);
+	void insert(Point *p);
 	void list(std::vector<PointList*> &v);
 	int countRegion(Point p, int d);
 	int aggregateRegion(Point p, int d);
