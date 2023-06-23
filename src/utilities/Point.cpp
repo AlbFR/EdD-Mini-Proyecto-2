@@ -35,6 +35,11 @@ void Point::print() {
 	}
 }
 
+void Point::set(double x, double y) {
+	this->setX(x);
+	this->setY(y);
+}
+
 void Point::setX(double x) {
 	this->x = x;
 }

@@ -14,6 +14,7 @@ class Point {
 		Point(double x, double y);
 		Point(PointData data);
 		void print();
+		void set(double x, double y);
 		void setX(double x);
 		void setY(double y);
 		int compare(Point q) const;
