@@ -1,5 +1,9 @@
 #include "QuadTree.h"
 
+QuadTree::QuadTree() {
+	std::cerr << "Cannot initializa a QuadTree withoud a boundary" << std::endl;
+}
+
 QuadTree::QuadTree(Boundary *b) {
 	root = new Node(b);
 	num_elements = 0;
@@ -18,8 +22,8 @@ void QuadTree::insert(Point p) {
 	num_elements++;
 }
 
-void QuadTree::list() {
-	
+void QuadTree::list(std::vector<PointList> &v) {
+	root->list(v);	
 }
 
 int QuadTree::countRegion(Point p, int d) {

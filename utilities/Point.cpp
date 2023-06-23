@@ -11,20 +11,23 @@ Point::Point() {
 Point::Point(double x, double y) {
 	this->x = x;
 	this->y = y;
-	this->pd = nullptr;
 	this->pointdata = nullptr;
 }
 
 Point::Point(PointData pointData) {
-	this->x = pointData.longitude;
-	this->y = pointData.latitude;
+	// this->x = pointData.longitude;
+	// this->y = pointData.latitude;
+	this->x = pointData.latitude;
+	this->y = pointData.longitude;
 	this->pointdata = &pointData;
 }
 
-Point::Point(double x, double y, PointData *pd) {
-	this->x = x;
-	this->y = y;
-	this->pd = pd;
+// Point::Point(double x, double y, PointData *pd) {
+// 	this->x = x;
+// 	this->y = y;
+// 	this->pd = pd;
+// }
+
 void Point::print() {
 	std::cout << "(" << this->x << ", " << this->y << ")";
 	if(this->pointdata != nullptr) {
@@ -58,7 +61,7 @@ int Point::compare(Point q) const {
 				6
 	*/
 
-	double e = 1e-6; // epsilon for float comparison error
+	double e = 1e-7; // epsilon for float comparison error
 	double x = q.x - this->x;
 	double y = q.y - this->y;
 

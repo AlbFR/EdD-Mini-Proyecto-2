@@ -47,7 +47,6 @@ void Node::insert(Point &p) {
 		return;
 	}
 	else {
-		std::cerr << pl_->sameCoordsAs(p) << std::endl;
 		if (pl_->sameCoordsAs(p)) {
 			pl_->append(&p);
 			return;
@@ -91,9 +90,19 @@ void Node::insert(PointList *pl) {
 	}
 }
 
-// std::vector<Node> Node::list() {
-
-// }
+void Node::list(std::vector<PointList> &v) const {
+	// std::cerr << (this==nullptr) << std::endl;
+	if (this == nullptr)
+		return;
+	if (pl_ != nullptr) {
+		v.push_back(*pl_);
+		std::cerr << "The next PL was appended to the list vector: ";
+		pl_->print();
+	}
+	for (int i=0;i<4;++i) {
+		children_[i]->list(v);
+	}
+}
 
 // Counts nodes
 int Node::countRegion(Boundary *b) const {
@@ -133,7 +142,8 @@ void Node::showPoints() const {
 void Node::subdivide() {
 	Point *ul = boundary_->upperleft;
 	Point *br = boundary_->bottomright;
-	Point *p, *q;
+	Point *p = new Point(0.0f, 0.0f);
+	Point *q = new Point(0.0f, 0.0f);
 	double halfX = boundary_->halfX();
 	double halfY = boundary_->halfY();
 

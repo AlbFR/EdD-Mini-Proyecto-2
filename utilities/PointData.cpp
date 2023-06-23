@@ -2,7 +2,7 @@
 #include "PointData.h"
 
 PointData::PointData() {
-    throw "Cannot create a PointData Object without arguments";
+    std::cerr << "Cannot create a PointData Object without arguments" << std::endl;
 }
 
 PointData::PointData(std::string country, std::string city, std::string accentcity, std::string region, int population, double latitude, double longitude, std::string geopoint) {
@@ -17,5 +17,7 @@ PointData::PointData(std::string country, std::string city, std::string accentci
 }
 
 void PointData::print() {
-    std::cout << "City: " << this->city << " Population: " << this->population;
+    std::cout << "City: " << this->city;
+	std::cout << "; Population: " << this->population;
+	std::cout << std::endl;
 }
