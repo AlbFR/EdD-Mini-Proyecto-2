@@ -25,7 +25,7 @@ void QuadTree::insert(Point p) {
 	num_elements++;
 }
 
-void QuadTree::list(std::vector<PointList> &v) {
+void QuadTree::list(std::vector<PointList*> &v) {
 	root->list(v);	
 }
 

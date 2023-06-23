@@ -7,7 +7,7 @@
 int main() {
 	
 	std::ifstream file;
-    file.open("dataSet/worldcitiespop_fixed.csv");
+    file.open("../dataSet/worldcitiespop_fixed.csv");
 	
 	if (file.fail()) {
 		std::cerr << "Error: The file could not be opened" << std::endl;
@@ -24,22 +24,25 @@ int main() {
 
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
-	int numCities = 1;
+	int numCities = 10;
 
 	std::string ignore;
 	getline(file, ignore);
 	for (int i = 0;i < numCities;++i) {
 		PointData pd = readLine(file);
+		Point *p = new Point(pd);
+		p->print();
 		qt->insert(*(new Point(pd)));
 	}
 
 	std::cout << qt->totalPoints() << std::endl;
 
-	std::vector<PointList> v;
+	std::vector<PointList*> v;
 	qt->list(v);
 
-	for (int i=0;i<v.size();++i) {
-		v[i].print();
+	for (unsigned i=0;i<v.size();++i) {
+		std::cout << (v[i]==nullptr) << std::endl;
+		v[i]->print();
 	}
 
 	file.close();

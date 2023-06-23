@@ -14,7 +14,7 @@ public:
     int totalNodes() const;
     void insert(Point &p);
 	void insert(PointList *pl);
-    void list(std::vector<PointList> &v) const;
+    void list(std::vector<PointList*> &v) const;
     int countRegion(Boundary *b) const;
 	int agreggateRegion(Boundary *b) const;
 	void showPoints() const;

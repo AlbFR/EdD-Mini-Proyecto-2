@@ -94,17 +94,19 @@ void Node::insert(PointList *pl) {
 	}
 }
 
-void Node::list(std::vector<PointList> &v) const {
+void Node::list(std::vector<PointList*> &v) const {
 	// std::cerr << (this==nullptr) << std::endl;
-	if (this == nullptr)
-		return;
+	// if (this == nullptr)
+	// 	return;
 	if (pl_ != nullptr) {
-		v.push_back(*pl_);
-		std::cerr << "The next PL was appended to the list vector: ";
-		pl_->print();
+		// std::cerr << "The next PL was appended to the list vector: ";
+		// pl_->print();
+		v.push_back(pl_);
+		return;
 	}
 	for (int i=0;i<4;++i) {
-		children_[i]->list(v);
+		if (children_[i] != nullptr)
+			children_[i]->list(v);
 	}
 }
 
