@@ -8,7 +8,7 @@
 int main() {
 	
 	std::ifstream file;
-    file.open("dataSet/worldcitiespop_fixed.csv");
+    file.open("worldcitiespop_fixed.csv");
 	
 	if (file.fail()) {
 		std::cerr << "Error: The file could not be opened" << std::endl;
@@ -19,8 +19,8 @@ int main() {
 	// latitude [-90, 90]
 	// longitude [-180, 180]
 
-	Point *p = new Point(-90.0f, -180.0f);
-	Point *q = new Point(90.0f, 180.0f);
+	Point *p = new Point(-180.0f, -180.0f);
+	Point *q = new Point(180.0f, 180.0f);
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
 	int numCities = 10;
@@ -51,6 +51,11 @@ int main() {
     center->print();
     std::cout << " and radius " << radius << " is " << pointsNum << std::endl;
 
+    int pop = qt->aggregateRegion(*center, radius);
+    std::cout << "The population in the region with center ";
+    center->print();
+    std::cout << " and radius " << radius << " is " << pop << std::endl;
+
 
     /*srand (time(NULL));
 
@@ -74,8 +79,5 @@ int main() {
     cout << "Medicion de insertAt() VectorList: " << endl;
     cout << "cantidad de elementos a insertar al final: " << elementos << endl;
     cout << "timpo promedio: " << duration << endl;*/
-
-
-
     return 0;
 }
