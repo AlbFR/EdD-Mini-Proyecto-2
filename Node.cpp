@@ -129,7 +129,7 @@ int Node::agreggateRegion(Boundary *b) const {
 		return 0;
 
 	if (pl_ != nullptr) {
-		// return pl_->population();
+		return pl_->population();
 	}	
 	
 	int sum = 0;

@@ -4,7 +4,7 @@
 #include "ADTQuadTree.h"
 #include "Node.h"
 
-class QuadTree: ADTQuadTree {
+class QuadTree: public ADTQuadTree {
 public:
 	QuadTree();
 	QuadTree(Boundary *b);
