@@ -106,7 +106,7 @@ class PointList {
 		void append(PointList *pl) {
 			if (!amount_) {
 				this->head = pl->head;
-				this->tail = pl->head;
+				this->tail = pl->tail;
 				amount_ = pl->size();
 				return;
 			}
