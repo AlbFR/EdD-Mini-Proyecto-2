@@ -69,7 +69,16 @@ class PointList {
 			delete tail;
 			delete head;
 		}
-		int population();
+		int population() {
+			int averg = 0;
+			PointNode *current = this->head;
+			while (current != nullptr) {
+				averg += current->point->pointdata->population;
+				current = current->next;
+			}
+			averg /= amount_;
+			return averg;
+		}
 		bool sameCoordsAs(Point p) {
 			if (this->head->point->x != p.x)
 				return false;

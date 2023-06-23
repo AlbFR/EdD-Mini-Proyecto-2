@@ -18,6 +18,9 @@ int QuadTree::totalNodes() {
 }
 
 void QuadTree::insert(Point p) {
+	if(p.pointdata == nullptr) {
+		throw "The Points must contain information to be inserted in the QuadTree.";
+	}
 	root->insert(p);
 	num_elements++;
 }
