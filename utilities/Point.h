@@ -66,8 +66,12 @@ class PointList {
 			amount_ = 1;
 		}
 		~PointList() {
-			delete tail;
-			delete head;
+			PointNode *current = this->head;
+			while (current != nullptr) {
+				this->head = current->next;
+				delete current;
+				current = this->head;
+			}
 		}
 		int population() {
 			int averg = 0;

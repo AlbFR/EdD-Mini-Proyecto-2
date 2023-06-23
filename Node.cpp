@@ -32,9 +32,13 @@ int Node::totalPoints() const {
 
 int Node::totalNodes() const {
 	if (*children_ == nullptr)
-		return 0;
+		return 1;
 	
-	return 4;
+	int nodes = 1;
+	for (int i = 0; i < 4; i++) {
+		nodes += children_[i]->totalNodes();
+	}
+	return nodes;
 }
 
 void Node::insert(Point &p) {
