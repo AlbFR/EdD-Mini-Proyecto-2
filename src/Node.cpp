@@ -37,7 +37,8 @@ int Node::totalNodes() const {
 	
 	int nodes = 0;
 	for (int i = 0; i < 4; i++) {
-		nodes += children_[i]->totalNodes();
+		if (children_[i] != nullptr)
+			nodes += children_[i]->totalNodes();
 	}
 	return nodes + 1;
 }
@@ -175,5 +176,5 @@ void Node::subdivide() {
 	*q = br;
 	b = new Boundary(p, q);
 	children_[4] = new Node(p, q);
-	std::cout << "Subdivision made :D (print in Node::subdivide())" << std::endl;
+	// std::cout << "Subdivision made :D (print in Node::subdivide())" << std::endl;
 }

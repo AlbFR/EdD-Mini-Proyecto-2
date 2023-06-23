@@ -24,7 +24,7 @@ int main() {
 
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
-	int numCities = 10;
+	int numCities = 3;
 
 	std::string ignore;
 	getline(file, ignore);
@@ -38,13 +38,13 @@ int main() {
 	std::cout << qt->totalPoints() << std::endl;
 	std::cout << qt->totalNodes() << std::endl;
 
-	// std::vector<PointList*> v;
-	// qt->list(v);
+	std::vector<PointList*> v;
+	qt->list(v);
 
-	// for (unsigned i=0;i<v.size();++i) {
-	// 	std::cout << (v[i]==nullptr) << std::endl;
-	// 	v[i]->print();
-	// }
+	for (unsigned i=0;i<v.size();++i) {
+		std::cout << (v[i]==nullptr) << std::endl;
+		v[i]->print();
+	}
 
 	// file.close();
 
