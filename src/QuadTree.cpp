@@ -5,7 +5,7 @@ QuadTree::QuadTree() {
 }
 
 QuadTree::QuadTree(Boundary *b) {
-	root = new Node(b);
+	root = new Node(b, 0);
 	num_elements = 0;
 }
 

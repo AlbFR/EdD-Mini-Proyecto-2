@@ -24,7 +24,7 @@ int main() {
 
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
-	int numCities = 3;
+	int numCities = 5;
 
 	std::string ignore;
 	getline(file, ignore);
