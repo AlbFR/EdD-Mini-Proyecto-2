@@ -23,113 +23,50 @@ class Point {
 		void print() const;
 };
 
-class PointNode {
-	public:
-		Point *point;
-		PointNode *next;
-		PointNode(Point *p) {
-			this->point = p;
-			this->next = nullptr;
-		}
-		// PointNode(Point *p, Point *next) {
-		// 	this->point = p;
-		// 	PointNode *pn = new PointNode(next);
-		// 	this->next = pn;
-		// }
-		PointNode(Point *p, PointNode *next) {
-			this->point = p;
-			this->next = next;
-		}
-		void print() {
-			this->point->print();
-		}
-};
-
 class PointList {
 	public:
 	 	double x, y;
-		PointNode *head;
-		PointNode *tail;
-		PointList() {
-			this->head = nullptr;
-			this->tail = nullptr;
-			amount_ = 0;
-		}
+		std::vector<Point*> container;
+		PointList() {}
 		PointList(Point *p) {
-			amount_ = 0;
 			this->append(p);
-			// p.print();
-			// this->head->print();
 		}
-		PointList(PointNode *p) {
-			this->head = p;
-			this->tail = p;
-			amount_ = 1;
-		}
-		~PointList() {
-			PointNode *current = this->head;
-			while (current != nullptr) {
-				this->head = current->next;
-				delete current;
-				current = this->head;
-			}
-		}
+		~PointList() {}
 		int population() {
-			int averg = 0;
-			PointNode *current = this->head;
-			while (current != nullptr) {
-				averg += current->point->pointdata->population;
-				current = current->next;
-			}
-			averg /= amount_;
-			return averg;
+			if (this->container.empty())
+				return 0;
+			return population_/this->container.size();
 		}
 		bool sameCoordsAs(Point p) {
-			if (this->head->point->x != p.x)
+			if (this->x != p.x)
 				return false;
-			if (this->head->point->y != p.y)
+			if (this->y != p.y)
 				return false;
 			return true;
 		}
-		void append(PointNode *pn) {
-			if (!amount_)
-				this->tail = pn;
-			else
-				pn->next = this->head;
-
-			this->head = pn;
-			amount_++;
-		}
 		void append(Point *p) {
-			PointNode *pn = new PointNode(p);
-			this->append(pn);
+			this->container.push_back(p);
+			population_ += p->pointdata->population;
 		}
 		void append(PointList *pl) {
-			if (!amount_) {
-				this->head = pl->head;
-				this->tail = pl->tail;
-				amount_ = pl->size();
-				return;
+			for (unsigned i=0;i<pl->size();++i) {
+				this->append(pl->container[i]);
 			}
-
-			this->tail->next = pl->head;
-			this->tail = pl->tail;
 		}
 		unsigned size() const {
-			return amount_;
+			return this->container.size();
 		}
 		void print() const {
-			PointNode *current = this->head;
-			while (current != nullptr) {
-				current->print();
+			this->container[0]->print();
+			for (unsigned i=1;i<this->container.size();++i) {
 				std::cout << " --> ";
-				current = current->next;
+				this->container[i]->print();
 			}
 			std::cout << std::endl;
 		}
 
 	private:
-		unsigned amount_;
+		unsigned population_;
 };
 
 #endif

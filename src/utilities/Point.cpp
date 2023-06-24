@@ -30,9 +30,9 @@ Point::Point(PointData pointData) {
 
 void Point::print() {
 	std::cout << "(" << this->x << ", " << this->y << ")";
-	if(this->pointdata != nullptr) {
-		this->pointdata->print();
-	}
+	// if(this->pointdata != nullptr) {
+	// 	this->pointdata->print();
+	// }
 }
 
 void Point::set(double x, double y) {
