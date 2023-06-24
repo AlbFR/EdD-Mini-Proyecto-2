@@ -8,7 +8,7 @@ class PointList {
 	public:
 	 	double x, y;
 		std::vector<Point*> container;
-		// PointList();
+		PointList();
 		PointList(Point *p);
 		int population();
 		bool sameCoordsAs(Point p);

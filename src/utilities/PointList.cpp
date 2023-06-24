@@ -1,11 +1,12 @@
 #include "PointList.h"
+
+PointList::PointList() {}
   
 PointList::PointList(Point *p) {
 	this->x = p->x;
 	this->y = p->y;
 	this->append(p);
 }
-
 
 int PointList::population() {
 	if (this->container.empty())
@@ -41,7 +42,8 @@ unsigned PointList::size() const {
 }
 
 void PointList::print() const {
-	this->container[0]->print();
+	if (!this->container.empty())
+		this->container[0]->print();
 	for (unsigned i=1;i<this->container.size();++i) {
 		std::cout << " --> ";
 		this->container[i]->print();

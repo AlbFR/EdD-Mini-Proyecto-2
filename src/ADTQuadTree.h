@@ -2,7 +2,7 @@
 #define ADTQuadTree_h
 
 #include <vector>
-#include "utilities/Point.h"
+#include "utilities/PointList.h"
 #include "utilities/PointData.h"
 
 class ADTQuadTree {

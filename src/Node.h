@@ -3,12 +3,13 @@
 
 #include <vector>
 #include "utilities/Boundary.h"
-#include "utilities/Point.h"
+#include "utilities/PointList.h"
 
 class Node {
 public:
-    Node(Boundary *b);
-	Node(Point *ul, Point *br);
+	Node();
+    Node(Boundary *b, int l);
+	Node(Point *ul, Point *br, int l);
     ~Node();
     int totalPoints() const;
     int totalNodes() const;
@@ -20,6 +21,7 @@ public:
 	void showPoints() const;
 
 private:
+	int level_;
 	PointList *pl_; // Linked List of Points
 	Boundary *boundary_;
     //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
