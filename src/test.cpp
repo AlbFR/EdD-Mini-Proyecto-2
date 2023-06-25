@@ -8,12 +8,13 @@
 #include "QuadTree.h"
 
 void printList(QuadTree *qt) {
-	std::vector<PointList*> v;
+	std::vector<PointList> v;
 	qt->list(v);
 
-	std::cout << std::endl << "Printing List..." << std::endl;
+	std::cout << std::endl << "Printing List of size: " << v.size() << std::endl;
 	for (unsigned i=0;i<v.size();++i) {
-		v[i]->print();
+		// std::cout << (nullptr == v[i]) << std::endl;
+		v[i].print();
 	}
 	std::cout << "List printed" << std::endl << std::endl;;
 }
@@ -49,11 +50,14 @@ int main() {
 	for (int i = 0;i < numCities;++i) {
 		PointData *pd = readLine(file);
 		Point *p = new Point(pd);
-		qt->insert(p);
+		std::cout << "\n\n\n\n\nINSERTING A NEW POINT...\n\n\n";
+		qt->insert(*p);
 	}
 
-	// std::cout << qt->totalPoints() << std::endl;
-	// std::cout << qt->totalNodes() << std::endl;
+	printList(qt);
+
+	std::cout << qt->totalPoints() << std::endl;
+	std::cout << qt->totalNodes() << std::endl;
 
 	// printList(qt);
 

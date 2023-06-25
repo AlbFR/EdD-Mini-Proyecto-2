@@ -17,18 +17,18 @@ int QuadTree::totalNodes() {
 	return root->totalNodes();
 }
 
-void QuadTree::insert(Point *p) {
-	if(p->pointdata == nullptr) {
+void QuadTree::insert(Point p) {
+	if(p.pointdata == nullptr) {
 		std::cerr << "The Points must contain information to be inserted in the QuadTree." << std::endl;
 	}
 	std::cout << "Inserting point";
-	p->print();
+	p.print();
 	std::cout << std::endl;
 	root->insert(p);
 	num_elements++;
 }
 
-void QuadTree::list(std::vector<PointList*> &v) {
+void QuadTree::list(std::vector<PointList> &v) {
 	root->list(v);	
 }
 

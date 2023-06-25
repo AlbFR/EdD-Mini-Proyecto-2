@@ -4,9 +4,9 @@ PointList::PointList() {
 	population_ = 0;
 }
   
-PointList::PointList(Point *p) {
-	this->x = p->x;
-	this->y = p->y;
+PointList::PointList(Point p) {
+	this->x = p.x;
+	this->y = p.y;
 	population_ = 0;
 	this->append(p);
 }
@@ -14,7 +14,7 @@ PointList::PointList(Point *p) {
 int PointList::population() {
 	if (this->container.empty())
 		return 0;
-	return population_/this->container.size();
+	return population_/(this->container.size());
 }
 
 bool PointList::isEmpty() {
@@ -29,34 +29,19 @@ bool PointList::sameCoordsAs(Point p) {
 	return true;
 }
 
-void PointList::append(Point *p) {
+void PointList::append(Point p) {
 	if (this->container.empty()) {
-		this->x = p->x;
-		this->y = p->y;
+		this->x = p.x;
+		this->y = p.y;
 	}
-
-
-
-
-	// if (!this->isEmpty()) {
-		// std::cout << (p == this->top()) << std::endl;
-		// p.print();
-		// std::cout << std::endl;
-		// this->top()->print();
-	// }
-
-
 
 	this->container.push_back(p);
 
-	// if (!this->isEmpty()) {
-	// 	std::cout << (p == this->top()) << std::endl;
-	// 	p->print();
-	// 	this->top()->print();
-	// }
+	std::cout << "Appended:\n";
+	this->top().print();
+	this->print();
 
-
-	population_ += p->pointdata->population;
+	population_ += p.pointdata->population;
 }
 
 void PointList::append(PointList *pl) {
@@ -65,7 +50,7 @@ void PointList::append(PointList *pl) {
 	}
 }
 
-Point* PointList::top() {
+Point PointList::top() {
 	if (this->isEmpty())
 		std::cerr << "There's no top element in container" << std::endl;
 	return this->container[this->container.size()-1];
@@ -81,10 +66,10 @@ unsigned PointList::size() const {
 
 void PointList::print() const {
 	if (!this->container.empty())
-		this->container[0]->print();
+		this->container[0].print();
 	for (unsigned i=1;i<this->container.size();++i) {
 		std::cout << " --> ";
-		this->container[i]->print();
+		this->container[i].print();
 	}
 	std::cout << std::endl;
 }

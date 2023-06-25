@@ -7,15 +7,15 @@
 class PointList {
 	public:
 	 	double x, y;
-		std::vector<Point*> container;
+		std::vector<Point> container;
 		PointList();
-		PointList(Point *p);
+		PointList(Point p);
 		int population();
 		bool isEmpty();
 		bool sameCoordsAs(Point p);
-		void append(Point *p);
+		void append(Point p);
 		void append(PointList *pl);
-		Point* top();
+		Point top();
 		void pop();
 		unsigned size() const;
 		void print() const;
