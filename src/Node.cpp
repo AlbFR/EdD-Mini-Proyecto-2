@@ -50,12 +50,9 @@ int Node::totalNodes() const {
 }
 
 void Node::insert(Point p) {
-	std::cout << "\n\n\nAttempting to insert on node with bounds:" << std::endl;
-	boundary_->print();
-	if (!(boundary_->isInBounds(p))) {
-		std::cout << "The point is out of bounds D:" << std::endl;
+
+	if (!(boundary_->isInBounds(p)))
 		return;
-	}
 
 	if (pl_ == nullptr) { // The node has children
 		std::cout << "The node has children" << std::endl;
@@ -69,14 +66,16 @@ void Node::insert(Point p) {
 	if (pl_->isEmpty()) { // The node w/o children has no points	
 	 	std::cout << "The PointList was empty so, we proceed to insert the Node :p at level " << level_ << std::endl;
 		pl_->append(p);
-		std::cout << "The new pl_ is :\n";
+		std::cout << "Appended at Node with bounds:";
+		boundary_->print();
 		return;
 	}
 
 	if (pl_->sameCoordsAs(p)) { // The points in the node are in the same place as the Point being inserted
 	 	std::cout << "Turns out the Node was already saving cities at the same location :D" << std::endl;
 		pl_->append(p);
-		std::cout << "The new pl_ is :\n";
+		std::cout << "Appended at Node with bounds:";
+		boundary_->print();
 		return;
 	}
 
@@ -84,13 +83,16 @@ void Node::insert(Point p) {
 	// The points in the node are in a different place as the one we're trying to insert
 	// so we divide the Node
 	subdivide();
-	for (int i=0;i<4;++i) {
-		for (unsigned j=0;j<pl_->size();++j) {
+
+	for (unsigned j=0;j<pl_->size();++j) {
+		for (int i=0;i<4;++i) {
 			if (children_[i] != nullptr) {
 				children_[i]->insert(pl_->top());
-				pl_->pop();
 			}
 		}
+		pl_->pop();
+	}
+	for (int i=0;i<4;++i) {
 		if (children_[i] != nullptr)
 			children_[i]->insert(p);
 	}
@@ -103,7 +105,8 @@ void Node::list(std::vector<PointList> &v) const {
 	// 	return;
 	if (pl_ != nullptr) {
 		pl_->print();
-		v.push_back(*pl_);
+		if (!pl_->isEmpty())
+			v.push_back(*pl_);
 	}
 	// if (pl_ != nullptr) {
 	// 	// std::cout << "Detectei algo :OO" << std::endl;
@@ -155,29 +158,30 @@ void Node::showPoints() const {
 void Node::subdivide() {
 	Point ul = *boundary_->upperleft;
 	Point br = *boundary_->bottomright;
-	Point *p = new Point(0.0f, 0.0f);
-	Point *q = new Point(0.0f, 0.0f);
+	// Point p, q;
+	// Point p = new Point(0.0f, 0.0f);
+	// Point q = new Point(0.0f, 0.0f);
 	double halfX = boundary_->halfX();
 	double halfY = boundary_->halfY();
 
-	*p = ul;
-	*q = *(boundary_->halfPoint());
+	Point p = ul;
+	Point q = *(boundary_->halfPoint());
 	Boundary *b1 = new Boundary(p, q);
 	children_[0] = new Node(b1, level_+1);
 
-	p->setX(halfX);
-	q->set(br.x, halfY);
+	p.setX(halfX);
+	q.set(br.x, halfY);
 	Boundary *b2 = new Boundary(p, q);
 	children_[1] = new Node(b2, level_+1);
 
-	p->set(ul.x, halfY);
-	q->setX(halfX);
-	q->setY(br.y);
+	p.set(ul.x, halfY);
+	q.setX(halfX);
+	q.setY(br.y);
 	Boundary *b3 = new Boundary(p, q);
 	children_[2] = new Node(b3, level_+1);
 
-	*p = *(boundary_->halfPoint());
-	*q = br;
+	p = *(boundary_->halfPoint());
+	q = br;
 	Boundary *b4 = new Boundary(p, q);
-	children_[4] = new Node(b4, level_+1);
+	children_[3] = new Node(b4, level_+1);
 }

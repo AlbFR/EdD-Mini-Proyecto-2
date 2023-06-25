@@ -11,6 +11,7 @@ class Boundary {
 		Boundary();
 		Boundary(Boundary *b);
 		Boundary(Point *p, int d);
+		Boundary(Point ul, Point br);
 		Boundary(Point *ul, Point *br);
 		double halfX() const;
 		double halfY() const;

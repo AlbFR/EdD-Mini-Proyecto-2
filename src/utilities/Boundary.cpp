@@ -18,6 +18,17 @@ Boundary::Boundary(Point *p, int d) {
 	this->bottomright = b;
 }
 
+Boundary::Boundary(Point ul, Point br) {
+	if (ul.compare(br) != 1)
+		std::cerr << "Cannot create Boundary, upperLeft Point must be lower than lowerRight Point" << std::endl;;
+	
+	Point *p = new Point(ul.x, ul.y);
+	Point *q = new Point(br.x, br.y);
+
+	this->upperleft = p;
+	this->bottomright = q;
+}
+
 Boundary::Boundary(Point *ul, Point *br) {
 	if (ul->compare(br) != 1)
 		std::cerr << "Cannot create Boundary, upperLeft Point must be lower than lowerRight Point" << std::endl;;

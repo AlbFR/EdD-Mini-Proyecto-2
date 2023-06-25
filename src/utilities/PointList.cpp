@@ -37,11 +37,8 @@ void PointList::append(Point p) {
 
 	this->container.push_back(p);
 
-	std::cout << "Appended:\n";
-	this->top().print();
-	this->print();
-
-	population_ += p.pointdata->population;
+	if (p.pointdata != nullptr)
+		population_ += p.pointdata->population;
 }
 
 void PointList::append(PointList *pl) {

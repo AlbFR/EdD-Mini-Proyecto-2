@@ -42,10 +42,9 @@ int main() {
 	Point *p = new Point(-90.0f, -180.0f);
 	Point *q = new Point(90.0f, 180.0f);
 
-
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
-	int numCities = 5;
+	int numCities = 6;
 
 	for (int i = 0;i < numCities;++i) {
 		PointData *pd = readLine(file);
@@ -56,8 +55,8 @@ int main() {
 
 	printList(qt);
 
-	std::cout << qt->totalPoints() << std::endl;
-	std::cout << qt->totalNodes() << std::endl;
+	// std::cout << qt->totalPoints() << std::endl;
+	// std::cout << qt->totalNodes() << std::endl;
 
 	// printList(qt);
 

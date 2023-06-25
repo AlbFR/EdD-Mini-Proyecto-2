@@ -21,8 +21,9 @@ public:
 	void showPoints() const;
 
 private:
+	// Distance from the node to the root
 	int level_;
-	PointList *pl_; // Linked List of Points
+	PointList *pl_;
 	Boundary *boundary_;
     //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
 	Node *children_[4]; 
