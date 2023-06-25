@@ -50,11 +50,14 @@ int Node::totalNodes() const {
 }
 
 void Node::insert(Point *p) {
+	boundary_->print();
 	if (!(boundary_->isInBounds(p))) {
+		std::cout << "The point is out of bounds D:" << std::endl;
 		return;
 	}
 
-	if (*children_ != nullptr) { // The node has children
+	if (pl_ == nullptr) { // The node has children
+		std::cout << "The node has children" << std::endl;
 		for (int i=0;i<4;++i) {
 			if (children_[i] != nullptr)
 				children_[i]->insert(p);
@@ -62,60 +65,76 @@ void Node::insert(Point *p) {
 		return;
 	}
 
-	if (pl_ == nullptr) { // The node w/o children has no points	
-		pl_ = new PointList(p);
-		return;
-	}
-
-	if (pl_->sameCoordsAs(*p)) { // The points in the node are in the same place as the Point being inserted
+	if (pl_->isEmpty()) { // The node w/o children has no points	
+	 	std::cout << "The PointList was empty so, we proceed to insert the Node :p at level " << level_ << std::endl;
 		pl_->append(p);
 		return;
 	}
 
+	if (pl_->sameCoordsAs(*p)) { // The points in the node are in the same place as the Point being inserted
+	 	std::cout << "Turns out the Node was already saving cities at the same location :D" << std::endl;
+		pl_->append(p);
+		return;
+	}
+
+	std::cout << "There's no option, we gotta subdivide :c" << std::endl;
 	// The points in the node are in a different place as the one we're trying to insert
 	// so we divide the Node
 	subdivide();
-	for (int i=0;i<4;++i)
-	 	if (children_[i] != nullptr)
-			children_[i]->insert(pl_);
+	for (unsigned j=0;j<pl_->size();++j) {
+		for (int i=0;i<4;++i) {
+			if (children_[i] != nullptr) {
+				children_[i]->insert(pl_->top());
+				pl_->pop();
+			}
+		}
+	}
+	// for (unsigned j=0;j<pl_->size();++j) {
+	// 	for (int i=0;i<4;++i) 
+	// 		if (children_[i] != nullptr)
+	// 			children_[i]->insert(pl_[j]);
+	// }
 	this->insert(p);	
 	pl_ = nullptr;
 
 }
 
-void Node::insert(PointList *pl) {
-	Point *q = new Point(pl->x, pl->y);
-	if (!(boundary_->isInBounds(q))) {
-		return;
-	}
+// void Node::insert(PointList *pl) {
+// 	Point *q = new Point(pl->x, pl->y);
+// 	if (!(boundary_->isInBounds(q))) {
+// 		return;
+// 	}
 
-	if (pl_ == nullptr) {
-		pl_ = new PointList();
-		pl_->append(pl);
-		return;
-	}
-	else {
-		if (pl_->sameCoordsAs(*q)) {
-			pl_->append(pl);
-			return;
-		}
-		else {
-			subdivide();
-			this->insert(pl_);
-			pl_ = nullptr;
-		}
-	}
+// 	if (*children_ != nullptr) { // The node has children
+
+// 	} 
+
+	// if (pl_ == nullptr) {
+	// 	pl_ = new PointList();
+	// 	pl_->append(pl);
+	// 	return;
+	// }
+	// else {
+	// 	if (pl_->sameCoordsAs(*q)) {
+	// 		pl_->append(pl);
+	// 		return;
+	// 	}
+	// 	else {
+	// 		subdivide();
+	// 		this->insert(pl_);
+	// 		pl_ = nullptr;
+	// 	}
+	// }
 	
-	for (int i=0;i<4;++i) {
-		children_[i]->insert(pl);
-	}
-}
+	// for (int i=0;i<4;++i) {
+	// 	children_[i]->insert(pl);
+	// }
+// }
 
 void Node::list(std::vector<PointList*> &v) const {
 	if (pl_ != nullptr) {
-		// std::cerr << "The next PL was appended to the list vector: ";
-		// pl_->print();
 		v.push_back(pl_);
+		pl_->print();
 		return;
 	}
 	for (int i=0;i<4;++i) {
@@ -187,6 +206,4 @@ void Node::subdivide() {
 	*q = br;
 	Boundary *b4 = new Boundary(p, q);
 	children_[4] = new Node(b4, level_+1);
-	std::cout << "Subdivision made :D (print in Node::subdivide())" << std::endl;
-	std::cout << "Reached out level: " << level_+1 << std::endl;
 }

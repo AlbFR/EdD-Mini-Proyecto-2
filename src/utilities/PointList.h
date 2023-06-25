@@ -11,9 +11,12 @@ class PointList {
 		PointList();
 		PointList(Point *p);
 		int population();
+		bool isEmpty();
 		bool sameCoordsAs(Point p);
 		void append(Point *p);
 		void append(PointList *pl);
+		Point* top();
+		void pop();
 		unsigned size() const;
 		void print() const;
 

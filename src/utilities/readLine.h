@@ -5,7 +5,7 @@
 #include <algorithm>
 #include "PointData.h"
 
-PointData readLine(std::ifstream &file) {
+PointData* readLine(std::ifstream &file) {
     if(file.fail()) {
         throw "There was an error reading the file.";
     }
@@ -19,10 +19,6 @@ PointData readLine(std::ifstream &file) {
     }
     std::replace(citydata[5].begin(), citydata[5].end(), ',', '.');
     std::replace(citydata[6].begin(), citydata[6].end(), ',', '.');
-	// for (int i=0;i<citydata.size();++i) {
-	// 	std::cout << citydata[i] << " ";
-	// }
-	// std::cout << std::endl;
-    PointData city(citydata[0], citydata[1], citydata[2], citydata[3], std::stoi(citydata[4]), std::stod(citydata[5]), std::stod(citydata[6]), citydata[7]);
-    return city;
+    PointData *pd = new PointData(citydata[0], citydata[1], citydata[2], citydata[3], std::stoi(citydata[4]), std::stod(citydata[5]), std::stod(citydata[6]), citydata[7]);
+    return pd;
 }

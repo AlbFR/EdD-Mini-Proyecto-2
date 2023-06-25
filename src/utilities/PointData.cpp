@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "PointData.h"
 
 PointData::PointData() {
@@ -6,18 +7,20 @@ PointData::PointData() {
 }
 
 PointData::PointData(std::string country, std::string city, std::string accentcity, std::string region, int population, double latitude, double longitude, std::string geopoint) {
-    this->country = country;
-    this->city = city;
-    this->accentcity = accentcity;
-    this->region = region;
+    country_ = country;
+    city_ = city;
+    accentcity_ = accentcity;
+    region_ = region;
     this->population = population;
     this->latitude = latitude;
     this->longitude = longitude;
-    this->geopoint = geopoint;
+    geopoint_ = geopoint;
 }
 
 void PointData::print() {
-    std::cout << "City: " << this->city;
-	std::cout << "; Population: " << this->population;
-	std::cout << std::endl;
+	std::cout << "Geopoint:   (" << std::setprecision(15) << this->latitude << ", ";
+	std::cout << std::setprecision(15) << this->longitude << ")" << std::endl;
+    std::cout << "Country:    " << country_ << std::endl;
+    std::cout << "City:       " << city_ << std::endl;
+	std::cout << "Population: " << this->population << std::endl;
 }
