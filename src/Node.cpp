@@ -49,7 +49,8 @@ int Node::totalNodes() const {
 	return nodes + 1;
 }
 
-void Node::insert(Point *p) {
+void Node::insert(Point p) {
+	std::cout << "\n\n\nAttempting to insert on node with bounds:" << std::endl;
 	boundary_->print();
 	if (!(boundary_->isInBounds(p))) {
 		std::cout << "The point is out of bounds D:" << std::endl;
@@ -68,12 +69,14 @@ void Node::insert(Point *p) {
 	if (pl_->isEmpty()) { // The node w/o children has no points	
 	 	std::cout << "The PointList was empty so, we proceed to insert the Node :p at level " << level_ << std::endl;
 		pl_->append(p);
+		std::cout << "The new pl_ is :\n";
 		return;
 	}
 
-	if (pl_->sameCoordsAs(*p)) { // The points in the node are in the same place as the Point being inserted
+	if (pl_->sameCoordsAs(p)) { // The points in the node are in the same place as the Point being inserted
 	 	std::cout << "Turns out the Node was already saving cities at the same location :D" << std::endl;
 		pl_->append(p);
+		std::cout << "The new pl_ is :\n";
 		return;
 	}
 
@@ -81,62 +84,33 @@ void Node::insert(Point *p) {
 	// The points in the node are in a different place as the one we're trying to insert
 	// so we divide the Node
 	subdivide();
-	for (unsigned j=0;j<pl_->size();++j) {
-		for (int i=0;i<4;++i) {
+	for (int i=0;i<4;++i) {
+		for (unsigned j=0;j<pl_->size();++j) {
 			if (children_[i] != nullptr) {
 				children_[i]->insert(pl_->top());
 				pl_->pop();
 			}
 		}
+		if (children_[i] != nullptr)
+			children_[i]->insert(p);
 	}
-	// for (unsigned j=0;j<pl_->size();++j) {
-	// 	for (int i=0;i<4;++i) 
-	// 		if (children_[i] != nullptr)
-	// 			children_[i]->insert(pl_[j]);
-	// }
-	this->insert(p);	
 	pl_ = nullptr;
 
 }
 
-// void Node::insert(PointList *pl) {
-// 	Point *q = new Point(pl->x, pl->y);
-// 	if (!(boundary_->isInBounds(q))) {
-// 		return;
-// 	}
-
-// 	if (*children_ != nullptr) { // The node has children
-
-// 	} 
-
-	// if (pl_ == nullptr) {
-	// 	pl_ = new PointList();
-	// 	pl_->append(pl);
+void Node::list(std::vector<PointList> &v) const {
+	// if (this == nullptr)
+	// 	return;
+	if (pl_ != nullptr) {
+		pl_->print();
+		v.push_back(*pl_);
+	}
+	// if (pl_ != nullptr) {
+	// 	// std::cout << "Detectei algo :OO" << std::endl;
+	// 	pl_->print();
+	// 	v.push_back(pl_);
 	// 	return;
 	// }
-	// else {
-	// 	if (pl_->sameCoordsAs(*q)) {
-	// 		pl_->append(pl);
-	// 		return;
-	// 	}
-	// 	else {
-	// 		subdivide();
-	// 		this->insert(pl_);
-	// 		pl_ = nullptr;
-	// 	}
-	// }
-	
-	// for (int i=0;i<4;++i) {
-	// 	children_[i]->insert(pl);
-	// }
-// }
-
-void Node::list(std::vector<PointList*> &v) const {
-	if (pl_ != nullptr) {
-		v.push_back(pl_);
-		pl_->print();
-		return;
-	}
 	for (int i=0;i<4;++i) {
 		if (children_[i] != nullptr)
 			children_[i]->list(v);

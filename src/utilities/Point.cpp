@@ -26,7 +26,6 @@ void Point::print() const {
 	}
 	else {
 		std::cout << "(" << this->x << ", " << this->y << ")";
-		std::cout << "This point has its PointData NULL, fix the issue" << std::endl;
 	}
 }
 
@@ -91,14 +90,3 @@ int Point::compare(Point q) const {
 int Point::compare(Point *q) const {
 	return this->compare(*q);
 }
-
-// void Point::operator=(Point q) {
-// 	this->x = q.x;
-// 	this->y = q.y;
-// }
-
-// void Point::print() const {
-// 	std::cout << "(" << std::setprecision(15) << this->x;
-// 	std::cout << ", " << std::setprecision(15) << this->y;
-// 	std::cout << ")";
-// }

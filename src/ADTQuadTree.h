@@ -14,12 +14,12 @@ class ADTQuadTree {
 	virtual int totalNodes() = 0;
 
 	// Inserts a new point p in the QuadTree, associating it with the given information
-	virtual void insert(Point *p) = 0;
+	virtual void insert(Point p) = 0;
 
 	// Returns a container (as parameter) with every PointList in QuadTree which has
 	// every Point in QuadTree, for each value returns
 	// its coordinates and its associated value
-	virtual void list(std::vector<PointList*> &v) = 0;
+	virtual void list(std::vector<PointList> &v) = 0;
 
 	// Returns the amount of points in a certain region of the plane, with
 	// p as the center and d as the radius
