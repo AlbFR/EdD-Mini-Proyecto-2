@@ -12,15 +12,14 @@ class Point {
 		PointData* pointdata;
 		Point();
 		Point(double x, double y);
-		Point(PointData data);
-		void print();
+		Point(PointData *data);
+		void print() const;
 		void set(double x, double y);
 		void setX(double x);
 		void setY(double y);
 		int compare(Point q) const;
 		int compare(Point *q) const;
-		void operator=(Point q);
-		void print() const;
+		// void operator=(Point q);
 };
 
 #endif

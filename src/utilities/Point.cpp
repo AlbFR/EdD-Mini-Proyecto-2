@@ -1,6 +1,5 @@
 #include "Point.h"
 
-// #include <iostream>
 #include <cmath>
 
 Point::Point() {
@@ -14,25 +13,21 @@ Point::Point(double x, double y) {
 	this->pointdata = nullptr;
 }
 
-Point::Point(PointData pointData) {
-	// this->x = pointData.longitude;
-	// this->y = pointData.latitude;
-	this->x = pointData.latitude;
-	this->y = pointData.longitude;
-	this->pointdata = &pointData;
+Point::Point(PointData *pointData) {
+	this->x = pointData->latitude;
+	this->y = pointData->longitude;
+	this->pointdata = pointData;
 }
 
-// Point::Point(double x, double y, PointData *pd) {
-// 	this->x = x;
-// 	this->y = y;
-// 	this->pd = pd;
-// }
 
-void Point::print() {
-	std::cout << "(" << this->x << ", " << this->y << ")";
-	// if(this->pointdata != nullptr) {
-	// 	this->pointdata->print();
-	// }
+void Point::print() const {
+	if (this->pointdata != nullptr) {
+		this->pointdata->print();
+	}
+	else {
+		std::cout << "(" << this->x << ", " << this->y << ")";
+		std::cout << "This point has its PointData NULL, fix the issue" << std::endl;
+	}
 }
 
 void Point::set(double x, double y) {
@@ -97,21 +92,13 @@ int Point::compare(Point *q) const {
 	return this->compare(*q);
 }
 
-void Point::operator=(Point q) {
-	this->x = q.x;
-	this->y = q.y;
-}
-
-// bool Point::operator==(Point q) const {
-// 	if (this->x != q.x)
-// 		return false;
-// 	if (this->y != q.y)
-// 		return false;
-// 	return true;
+// void Point::operator=(Point q) {
+// 	this->x = q.x;
+// 	this->y = q.y;
 // }
 
-void Point::print() const {
-	std::cout << "(" << this->x;
-	std::cout << ", " << this->y;
-	std::cout << ")";
-}
+// void Point::print() const {
+// 	std::cout << "(" << std::setprecision(15) << this->x;
+// 	std::cout << ", " << std::setprecision(15) << this->y;
+// 	std::cout << ")";
+// }
