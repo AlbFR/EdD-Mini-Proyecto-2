@@ -60,7 +60,7 @@ int Point::compare(Point q) const {
 				6
 	*/
 
-	double e = 1e-7; // epsilon for float comparison error
+	double e = 1e-10; // epsilon for float comparison error
 	double x = q.x - this->x;
 	double y = q.y - this->y;
 

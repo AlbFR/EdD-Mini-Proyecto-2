@@ -13,15 +13,15 @@ class PointList {
 		int population();
 		bool isEmpty();
 		bool sameCoordsAs(Point p);
-		void append(Point p);
-		void append(PointList *pl);
+		long long append(Point p);
+		// long long append(PointList *pl);
 		Point top();
 		void pop();
 		unsigned size() const;
 		void print() const;
 
 	private:
-		unsigned population_;
+		unsigned long long population_;
 };
 
 #endif

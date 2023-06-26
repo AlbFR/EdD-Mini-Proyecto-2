@@ -12,10 +12,10 @@ void printList(QuadTree *qt) {
 	qt->list(v);
 
 	std::cout << std::endl << "Printing List of size: " << v.size() << std::endl;
-	for (unsigned i=0;i<v.size();++i) {
-		// std::cout << (nullptr == v[i]) << std::endl;
-		v[i].print();
-	}
+
+	// for (unsigned i=0;i<v.size();++i)
+	// 	v[i].print();
+
 	std::cout << "List printed" << std::endl << std::endl;;
 }
 
@@ -44,16 +44,26 @@ int main() {
 
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
-	int numCities = 6;
+	// const int numCities = 10000;
+	int numCities;
+	std::cin >> numCities;
 
 	for (int i = 0;i < numCities;++i) {
 		PointData *pd = readLine(file);
 		Point *p = new Point(pd);
-		std::cout << "\n\n\n\n\nINSERTING A NEW POINT...\n\n\n";
+		// std::cout << "\n\n\n\n\nINSERTING A NEW POINT...\n\n\n";
 		qt->insert(*p);
+		// std::cout << "Points:     " << qt->totalPoints() << std::endl;
+		// std::cout << "Nodes:      " << qt->totalNodes() << std::endl;
+		// std::cout << "Population: " << qt->
+		// std::cout << std::endl;
 	}
 
 	printList(qt);
+
+	Point *o = new Point(0.0f, 0.0f);
+	std::cout << "World population: " << qt->aggregateRegion(*o, 18) << std::endl;
+	std::cout << "World nodes:      " << qt->countRegion(*o, 180) << std::endl;
 
 	// std::cout << qt->totalPoints() << std::endl;
 	// std::cout << qt->totalNodes() << std::endl;

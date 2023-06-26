@@ -29,7 +29,7 @@ bool PointList::sameCoordsAs(Point p) {
 	return true;
 }
 
-void PointList::append(Point p) {
+long long PointList::append(Point p) {
 	if (this->container.empty()) {
 		this->x = p.x;
 		this->y = p.y;
@@ -37,15 +37,25 @@ void PointList::append(Point p) {
 
 	this->container.push_back(p);
 
-	if (p.pointdata != nullptr)
+	if (p.pointdata != nullptr) {
+		long long r = population_;
 		population_ += p.pointdata->population;
-}
+		r *= -1;
+		r += population_;
+		return r;
+	}
 
-void PointList::append(PointList *pl) {
-	for (unsigned i=0;i<pl->size();++i) {
-		this->append(pl->container[i]);
+	else {
+		std::cerr << "You should not be using append in a node w/o PointData" << std::endl;
+		return 0;
 	}
 }
+
+// long long PointList::append(PointList *pl) {
+// 	for (unsigned i=0;i<pl->size();++i) {
+// 		this->append(pl->container[i]);
+// 	}
+// }
 
 Point PointList::top() {
 	if (this->isEmpty())

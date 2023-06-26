@@ -6,26 +6,23 @@ QuadTree::QuadTree() {
 
 QuadTree::QuadTree(Boundary *b) {
 	root = new Node(b, 0);
-	num_elements = 0;
+	num_points = 0;
 }
 
 int QuadTree::totalPoints() {
-	return root->totalPoints();
+	return root->pointsAmount();
 }
 
 int QuadTree::totalNodes() {
-	return root->totalNodes();
+	return root->nodesAmount();
 }
 
 void QuadTree::insert(Point p) {
-	if(p.pointdata == nullptr) {
+	if(p.pointdata == nullptr)
 		std::cerr << "The Points must contain information to be inserted in the QuadTree." << std::endl;
-	}
-	std::cout << "Inserting point";
-	p.print();
-	std::cout << std::endl;
+
 	root->insert(p);
-	num_elements++;
+	num_points++;
 }
 
 void QuadTree::list(std::vector<PointList> &v) {

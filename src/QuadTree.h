@@ -17,7 +17,7 @@ public:
 
 private:
 	Node* root;
-	unsigned num_elements;
+	unsigned num_points;
 
 };
 
