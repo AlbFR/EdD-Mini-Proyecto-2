@@ -16,11 +16,9 @@ public:
     Node(Boundary *b, int l);
 	Node(Point *ul, Point *br, int l);
     ~Node();
-    // int totalPoints() const;
 	int pointsAmount() const;
     int nodesAmount() const;
     UpdateInfo* insert(Point p);
-	// void insert(PointList *pl);
     void list(std::vector<PointList> &v) const;
     int countRegion(Boundary *b) const;
 	int agreggateRegion(Boundary *b) const;
@@ -37,7 +35,6 @@ private:
     //Array of, at most, 4 child nodes who represent the upperleft, upperright, lowerleft and lowerright subareas respectively.
 	Node *children_[4]; 
 	void subdivide();
-	// void appendPoint(Point p);
 
 };
 

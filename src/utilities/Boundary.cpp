@@ -51,7 +51,7 @@ double Boundary::halfY() const {
 	return (this->upperleft->y + this->bottomright->y) / 2;
 }
 
-bool Boundary::isInBounds(Point p) const { // limits inclusive
+bool Boundary::isInBounds(Point p) const {
 	// Inclusive in upper and left bounds
 	// Exclusive in bottom and right bounds
 
@@ -70,6 +70,7 @@ bool Boundary::isInBounds(Point *p) const {
 	return this->isInBounds(*p);
 }
 
+// Returns wether  or not b is completely inside this
 bool Boundary::isInBounds(Boundary *b) const {
 	// Inclusive on upperleft
 	// and exclusive on bottomright

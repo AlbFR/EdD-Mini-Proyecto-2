@@ -12,6 +12,7 @@ Node::Node(Boundary *b, int l) {
 	pl_ = new PointList();
 	num_points_ = 0;
 	num_nodes_ = 1;
+	population_ = 0;
 }
 
 Node::Node(Point *ul, Point *br, int l) {
@@ -21,6 +22,7 @@ Node::Node(Point *ul, Point *br, int l) {
 	pl_ = new PointList();
 	num_points_ = 0;
 	num_nodes_ = 1;
+	population_ = 0;
 }
 
 Node::~Node() {
@@ -36,18 +38,38 @@ int Node::pointsAmount() const {
 
 int Node::nodesAmount() const {
 	return num_nodes_;
-	// if (pl_ != nullptr)
-	// 	return 1;
-	
-	// int nodes = 0;
-	// for (int i = 0; i < 4; i++) {
-	// 	if (children_[i] != nullptr)
-	// 		nodes += children_[i]->totalNodes();
-	// }
-	// return nodes + 1;
 }
 
 UpdateInfo* Node::insert(Point p) {
+
+
+	/*
+	
+	
+		EL PROBLEMA ESTA EN EL UPDATE TONTO
+	
+	*/
+/*
+	si fuera de rango:
+		return null
+	
+	si el nodo tiene hijos:
+		insert(hijos, p)
+		return
+
+	si no tiene hijos y esta vacio:
+		insertar(p)
+		return
+
+	si tiene puntos con la misma coordenada:
+		añadir a lista de puntos
+		return	
+
+	subdividir()
+	insert(hijos, p)
+	return
+*/
+
 
 	if (!(boundary_->isInBounds(p)))
 		return nullptr;
@@ -65,6 +87,11 @@ UpdateInfo* Node::insert(Point p) {
 		population_ += update->population;
 		num_nodes_ += update->nodes;
 		num_points_++;
+		// std::cout << "Boundary :\n";
+		// boundary_->print();
+		// std::cout << "\nupdated to\n";
+		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
+		// std::cout << "f1" << std::endl;
 		return update;
 	}
 
@@ -76,6 +103,11 @@ UpdateInfo* Node::insert(Point p) {
 		// std::cout << "Appended at Node with bounds:";
 		population_ += update->population;
 		num_points_++;
+		// std::cout << "Boundary :\n";
+		// boundary_->print();
+		// std::cout << "\nupdated to\n";
+		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
+		// std::cout << "f2" << std::endl;
 		return update;
 	}
 
@@ -88,6 +120,11 @@ UpdateInfo* Node::insert(Point p) {
 		population_ += update->population;
 		num_nodes_ += update->nodes;
 		num_points_++;
+		// std::cout << "Boundary :\n";
+		// boundary_->print();
+		// std::cout << "\nupdated to\n";
+		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
+		// std::cout << "f3" << std::endl;
 		return update;
 	}
 
@@ -116,26 +153,29 @@ UpdateInfo* Node::insert(Point p) {
 	for (int i=0;i<4;++i) {
 		if (children_[i] != nullptr) {
 			sum = children_[i]->insert(p);
-				if (sum != nullptr) break;
+			if (sum != nullptr) break;
 		}
 	}
-	update->nodes += sum->nodes;
-	update->population += sum->population;
+	update->nodes = sum->nodes;
+	update->population = sum->population;
 	num_points_++;
 	num_nodes_ += update->nodes;
 	population_ += update->population;
 	pl_ = nullptr;
 
+	// std::cout << "Boundary :\n";
+	// boundary_->print();
+	// std::cout << "\nupdated to\n";
+	// std::cout << update->nodes << "\n" << update->population << std::endl << std::endl;
+	// std::cout << "f4" << std::endl;
+
 	return update;
 }
 
 void Node::list(std::vector<PointList> &v) const {
-	// if (this == nullptr)
-	// 	return;
 	if (pl_ != nullptr) {
 		if (!pl_->isEmpty()) {
 			v.push_back(*pl_);
-			// pl_->print();
 		}
 		return;
 	}
@@ -146,20 +186,55 @@ void Node::list(std::vector<PointList> &v) const {
 	}
 }
 
-// Counts nodes
+// Counts Points
 int Node::countRegion(Boundary *b) const {
-	boundary_->print();
 	if (!b->isPartiallyInBounds(boundary_)) {
-		std::cout << "Out of bounds :c" << std::endl;
+		// std::cout << "Out of bounds :c" << std::endl;
 		return 0;
 	}
 
 	if (b->isInBounds(boundary_)) {
-		std::cout << "Completely in bounds :D" << std::endl;
-		return num_nodes_;
+		// std::cout << "Completely in bounds :D" << std::endl;
+		return num_points_;
 	}
 
 
+	if (children_[0] == nullptr) { // Has no children
+		if (!pl_->isEmpty()) {
+			if (b->isInBounds(new Point(pl_->x, pl_->y)))
+				return pl_->size();
+			else
+				return 0;
+		}
+		else
+			return 0;
+	}
+
+
+	// std::cout << "Recursion..." << std::endl;
+	int sum = 0;
+	for (int i = 0;i < 4;++i) {
+		if (children_[i])
+		sum += children_[i]->countRegion(b);
+	}
+	return sum;
+}
+
+// Counts population
+int Node::agreggateRegion(Boundary *b) const {
+	// b->print();
+	// boundary_->print();
+	if (!b->isPartiallyInBounds(boundary_)) {
+		// std::cout << "Out of bounds :c" << std::endl;
+		return 0;
+	}
+
+	if (b->isInBounds(boundary_)) {
+		// std::cout << "Completely in bounds :D" << std::endl;
+		// std::cout << "return " << population_ << std::endl;
+		return population_;
+	}
+	
 	if (children_[0] == nullptr) { // Has no children
 		if (!pl_->isEmpty()) {
 			if (b->isInBounds(new Point(pl_->x, pl_->y)))
@@ -171,31 +246,7 @@ int Node::countRegion(Boundary *b) const {
 			return 0;
 	}
 
-
-	std::cout << "Recursion..." << std::endl;
-	int sum = 0;
-	for (int i = 0;i < 4;++i) {
-		if (children_[i])
-		sum += children_[i]->countRegion(b);
-	}
-	return sum;
-}
-
-// Counts population
-int Node::agreggateRegion(Boundary *b) const {
-	boundary_->print();
-	if (!boundary_->isPartiallyInBounds(b)) {
-		std::cout << "Out of bounds :c" << std::endl;
-		return 0;
-	}
-
-	if (boundary_->isInBounds(b)) {
-		std::cout << "Completely in bounds :D" << std::endl;
-		return population_;
-	}
-	
-
-	std::cout << "Recursion..." << std::endl;
+	// std::cout << "Recursion..." << std::endl;
 	int sum = 0;
 	for (int i = 0;i < 4;++i) {
 		sum += children_[i]->agreggateRegion(b);

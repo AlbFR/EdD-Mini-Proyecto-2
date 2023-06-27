@@ -13,8 +13,8 @@ void printList(QuadTree *qt) {
 
 	std::cout << std::endl << "Printing List of size: " << v.size() << std::endl;
 
-	// for (unsigned i=0;i<v.size();++i)
-	// 	v[i].print();
+	for (unsigned i=0;i<v.size();++i)
+		v[i].print();
 
 	std::cout << "List printed" << std::endl << std::endl;;
 }
@@ -62,7 +62,7 @@ int main() {
 	printList(qt);
 
 	Point *o = new Point(0.0f, 0.0f);
-	std::cout << "World population: " << qt->aggregateRegion(*o, 18) << std::endl;
+	std::cout << "World population: " << qt->aggregateRegion(*o, 180) << std::endl;
 	std::cout << "World nodes:      " << qt->countRegion(*o, 180) << std::endl;
 
 	// std::cout << qt->totalPoints() << std::endl;

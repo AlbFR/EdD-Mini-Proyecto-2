@@ -38,10 +38,17 @@ long long PointList::append(Point p) {
 	this->container.push_back(p);
 
 	if (p.pointdata != nullptr) {
+		if (this->container.empty()) {
+			population_ += p.pointdata->population;
+			// std::cout << "This differs on " << population_ << std::endl;
+			return population_;
+		}
+			
 		long long r = population_;
-		population_ += p.pointdata->population;
+		population_ += p.pointdata->population/this->container.size();
 		r *= -1;
 		r += population_;
+		// std::cout << "This differs on " << r << std::endl;
 		return r;
 	}
 
