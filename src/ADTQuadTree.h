@@ -27,7 +27,7 @@ class ADTQuadTree {
 
 	// Returns the estimated population in a certain region of the plane
 	// with p as the center and d as the radius
-	virtual int aggregateRegion(Point p, int d) = 0;	
+	virtual long long aggregateRegion(Point p, int d) = 0;	
 
 };
 

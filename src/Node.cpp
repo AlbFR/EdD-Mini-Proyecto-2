@@ -221,7 +221,7 @@ int Node::countRegion(Boundary *b) const {
 }
 
 // Counts population
-int Node::agreggateRegion(Boundary *b) const {
+long long Node::agreggateRegion(Boundary *b) const {
 	// b->print();
 	// boundary_->print();
 	if (!b->isPartiallyInBounds(boundary_)) {
@@ -247,7 +247,7 @@ int Node::agreggateRegion(Boundary *b) const {
 	}
 
 	// std::cout << "Recursion..." << std::endl;
-	int sum = 0;
+	long long sum = 0;
 	for (int i = 0;i < 4;++i) {
 		sum += children_[i]->agreggateRegion(b);
 	}

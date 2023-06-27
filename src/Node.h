@@ -21,7 +21,7 @@ public:
     UpdateInfo* insert(Point p);
     void list(std::vector<PointList> &v) const;
     int countRegion(Boundary *b) const;
-	int agreggateRegion(Boundary *b) const;
+	long long agreggateRegion(Boundary *b) const;
 	void showPoints() const;
 
 private:

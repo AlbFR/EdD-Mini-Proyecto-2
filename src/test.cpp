@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 #include <fstream>
 #include <string>
 
@@ -13,16 +14,18 @@ void printList(QuadTree *qt) {
 
 	std::cout << std::endl << "Printing List of size: " << v.size() << std::endl;
 
-	for (unsigned i=0;i<v.size();++i)
-		v[i].print();
+	// for (unsigned i=0;i<v.size();++i)
+	// 	v[i].print();
 
 	std::cout << "List printed" << std::endl << std::endl;;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 
 	std::ifstream file;
     file.open("../dataSet/worldcitiespop_fixed.csv");
+
+	int n = std::stoi(argv[1]);
 	
 	if (file.fail()) {
 		std::cerr << "Error: The file could not be opened" << std::endl;
@@ -45,8 +48,8 @@ int main() {
 	QuadTree *qt = new QuadTree(new Boundary(p, q));
 
 	// const int numCities = 10000;
-	int numCities;
-	std::cin >> numCities;
+	int numCities = n;
+	// std::cin >> numCities;
 
 	for (int i = 0;i < numCities;++i) {
 		PointData *pd = readLine(file);
@@ -63,7 +66,7 @@ int main() {
 
 	Point *o = new Point(0.0f, 0.0f);
 	std::cout << "World population: " << qt->aggregateRegion(*o, 180) << std::endl;
-	std::cout << "World nodes:      " << qt->countRegion(*o, 180) << std::endl;
+	std::cout << "World points:      " << qt->countRegion(*o, 180) << std::endl;
 
 	// std::cout << qt->totalPoints() << std::endl;
 	// std::cout << qt->totalNodes() << std::endl;

@@ -32,7 +32,7 @@ int QuadTree::countRegion(Point p, int d) {
 	return root->countRegion(b);
 }
 
-int QuadTree::aggregateRegion(Point p, int d) {
+long long QuadTree::aggregateRegion(Point p, int d) {
 	Boundary *b = new Boundary(&p, d);
 	std::cout << "The boundary we are looking in is\n";
 	b->print();
