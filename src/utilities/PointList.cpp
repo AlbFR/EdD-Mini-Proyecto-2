@@ -11,6 +11,8 @@ PointList::PointList(Point p) {
 	this->append(p);
 }
 
+PointList::~PointList() {}
+
 int PointList::population() {
 	if (this->container.empty())
 		return 0;

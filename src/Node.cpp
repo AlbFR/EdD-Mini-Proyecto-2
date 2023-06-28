@@ -26,10 +26,14 @@ Node::Node(Point *ul, Point *br, int l) {
 }
 
 Node::~Node() {
+	for (int i=0;i<4;++i) {
+		if (children_[i] != nullptr)
+			delete children_[i];
+	}
+	// delete []children_;
 	delete pl_;	
 	delete boundary_;
-	for (int i=0;i<4;++i)
-		delete children_[i];
+	delete this;
 }
 
 int Node::pointsAmount() const {
@@ -41,35 +45,6 @@ int Node::nodesAmount() const {
 }
 
 UpdateInfo* Node::insert(Point p) {
-
-
-	/*
-	
-	
-		EL PROBLEMA ESTA EN EL UPDATE TONTO
-	
-	*/
-/*
-	si fuera de rango:
-		return null
-	
-	si el nodo tiene hijos:
-		insert(hijos, p)
-		return
-
-	si no tiene hijos y esta vacio:
-		insertar(p)
-		return
-
-	si tiene puntos con la misma coordenada:
-		añadir a lista de puntos
-		return	
-
-	subdividir()
-	insert(hijos, p)
-	return
-*/
-
 
 	if (!(boundary_->isInBounds(p)))
 		return nullptr;
@@ -87,32 +62,19 @@ UpdateInfo* Node::insert(Point p) {
 		population_ += update->population;
 		num_nodes_ += update->nodes;
 		num_points_++;
-		// std::cout << "Boundary :\n";
-		// boundary_->print();
-		// std::cout << "\nupdated to\n";
-		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
-		// std::cout << "f1" << std::endl;
 		return update;
 	}
 
 	if (pl_->isEmpty()) { // The node w/o children has no points	
-	 	// std::cout << "The PointList was empty so, we proceed to insert the Node :p at level " << level_ << std::endl;
 		UpdateInfo* update = new UpdateInfo();
 		update->nodes = 0;
 		update->population = pl_->append(p);
-		// std::cout << "Appended at Node with bounds:";
 		population_ += update->population;
 		num_points_++;
-		// std::cout << "Boundary :\n";
-		// boundary_->print();
-		// std::cout << "\nupdated to\n";
-		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
-		// std::cout << "f2" << std::endl;
 		return update;
 	}
 
 	if (pl_->sameCoordsAs(p)) { // The points in the node are in the same place as the Point being inserted
-	 	// std::cout << "Turns out the Node was already saving cities at the same location :D" << std::endl;
 		UpdateInfo *update = new UpdateInfo();
 		update->nodes = 0;
 		update->population = pl_->append(p);
@@ -120,20 +82,10 @@ UpdateInfo* Node::insert(Point p) {
 		population_ += update->population;
 		num_nodes_ += update->nodes;
 		num_points_++;
-		// std::cout << "Boundary :\n";
-		// boundary_->print();
-		// std::cout << "\nupdated to\n";
-		// std::cout << num_nodes_ << "\n" << population_ << std::endl << std::endl;
-		// std::cout << "f3" << std::endl;
 		return update;
 	}
 
-	// std::cout << "There's no option, we gotta subdivide :c" << std::endl;
-	// The points in the node are in a different place as the one we're trying to insert
-	// so we divide the Node
 	UpdateInfo *update = new UpdateInfo();
-	// update->nodes = 4;
-	// update->population = 0;
 	subdivide();
 
 	for (unsigned j=0;j<pl_->size();++j) {
@@ -161,13 +113,10 @@ UpdateInfo* Node::insert(Point p) {
 	num_points_++;
 	num_nodes_ += update->nodes;
 	population_ += update->population;
+	// pl_ = nullptr;
+	delete pl_;
 	pl_ = nullptr;
 
-	// std::cout << "Boundary :\n";
-	// boundary_->print();
-	// std::cout << "\nupdated to\n";
-	// std::cout << update->nodes << "\n" << update->population << std::endl << std::endl;
-	// std::cout << "f4" << std::endl;
 
 	return update;
 }

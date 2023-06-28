@@ -8,6 +8,7 @@ class QuadTree: public ADTQuadTree {
 public:
 	QuadTree();
 	QuadTree(Boundary *b);
+	~QuadTree();
 	int totalPoints();
 	int totalNodes();
 	void insert(Point p);
@@ -21,4 +22,3 @@ private:
 };
 
 #endif
-

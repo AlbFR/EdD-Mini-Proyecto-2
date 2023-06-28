@@ -10,6 +10,7 @@ class PointList {
 		std::vector<Point> container;
 		PointList();
 		PointList(Point p);
+		~PointList();
 		int population();
 		bool isEmpty();
 		bool sameCoordsAs(Point p);

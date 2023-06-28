@@ -8,6 +8,10 @@ QuadTree::QuadTree(Boundary *b) {
 	root = new Node(b, 0);
 }
 
+QuadTree::~QuadTree() {
+	delete root;
+}
+
 int QuadTree::totalPoints() {
 	return root->pointsAmount();
 }

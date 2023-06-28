@@ -35,3 +35,5 @@
 *.zip
 *.csv
 *.txt
+.vscode/*
+src/vgcore.*
